@@ -55,7 +55,7 @@ btnRoll.addEventListener('click', () => {
     const dice = Math.floor(Math.random() * 6) + 1;
 
     // display the result
-    diceDOM.src = 'dice-' + dice + '.png';
+    diceDOM.src = 'public/dice-' + dice + '.png';
     diceDOM.style.display = 'block';
 
     // update the round score IF rolled number wasn't 1
