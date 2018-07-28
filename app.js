@@ -13,6 +13,7 @@ const init = () => {
   scores = [0, 0];
   roundScore = 0;
   activePlayer = 0;
+  prevDice = undefined;
 
   diceDOM = document.querySelector('.dice');
   btnRoll = document.querySelector('.btn-roll');
@@ -35,7 +36,7 @@ const init = () => {
   document.querySelector('.player-0-panel').classList.add('active');
 };
 
-let scores, roundScore, activePlayer, gamePlaying, diceDOM, btnRoll, btnHold;
+let scores, roundScore, activePlayer, gamePlaying, diceDOM, btnRoll, btnHold, currDice, prevDice;
 init();
 
 const nextPlayer = () => {
@@ -52,15 +53,16 @@ const nextPlayer = () => {
 btnRoll.addEventListener('click', () => {
   if (gamePlaying) {
     // get random number
-    const dice = Math.floor(Math.random() * 6) + 1;
+    prevDice = currDice;
+    currDice = Math.floor(Math.random() * 6) + 1;
 
     // display the result
-    diceDOM.src = 'public/dice-' + dice + '.png';
+    diceDOM.src = 'public/dice-' + currDice + '.png';
     diceDOM.style.display = 'block';
 
     // update the round score IF rolled number wasn't 1
-    if (dice !== 1) {
-      roundScore += dice;
+    if ((currDice !== 1) && ((prevDice !== 6) && (currDice !== 6))) {
+      roundScore += currDice;
       document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
       nextPlayer();
